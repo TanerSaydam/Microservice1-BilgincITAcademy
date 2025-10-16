@@ -1,4 +1,4 @@
-﻿# Microservice Eğitimi 1 - Bilgin� IT Academy
+﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
 - [ ] WebAPI ile Microservice inşa edelim
