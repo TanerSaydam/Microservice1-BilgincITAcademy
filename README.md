@@ -1,8 +1,6 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] WebAPI ile Microservice inşa edelim
-- [ ] OpenApi and Scalar
 - [ ] Health Check
 - [ ] Service Discovery Pattern (HashiCorp Consul)
 - [ ] Resilience Pattern (Polly)
@@ -26,3 +24,5 @@
 - [x] Microservice nedir?
 - [x] Modular Monolith nedir?
 - [x] Microservice vs Modular Monolith
+- [x] WebAPI ile Microservice inşa edelim
+- [x] OpenApi and Scalar
