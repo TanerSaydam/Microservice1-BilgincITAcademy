@@ -1,7 +1,6 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] Health Check
 - [ ] Service Discovery Pattern (HashiCorp Consul)
 - [ ] Resilience Pattern (Polly)
 - [ ] Gateway nedir?
@@ -26,3 +25,10 @@
 - [x] Microservice vs Modular Monolith
 - [x] WebAPI ile Microservice inşa edelim
 - [x] OpenApi and Scalar
+- [x] Health Check
+
+
+## Consul Docker komutu (Service Discovery)
+```powershell
+docker run -d --name consul -p 8500:8500 hashicorp/consul:latest
+```

@@ -1,6 +1,8 @@
+using HealthChecks.UI.Client;
 using Microservice.BasketWebAPI.Context;
 using Microservice.BasketWebAPI.Dtos;
 using Microservice.BasketWebAPI.Models;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -14,12 +16,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 builder.Services.AddOpenApi();
 builder.Services.AddHttpClient();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.MapGet("getall", async (ApplicationDbContext dbContext, HttpClient httpClient, CancellationToken cancellationToken) =>
+app.MapGet("getall", async (ApplicationDbContext dbContext, IHttpClientFactory httpClientFactory, CancellationToken cancellationToken) =>
 {
     var baskets = await dbContext.Baskets.ToListAsync(cancellationToken);
     baskets.Add(new Basket()
@@ -28,7 +32,12 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, HttpClient httpClien
         Quantity = 5
     });
 
-    var products = await httpClient.GetFromJsonAsync<List<ProductDto>>("http://localhost:6001/getall", cancellationToken);
+    using var httpClient = httpClientFactory.CreateClient();
+
+    var products = await httpClient.GetFromJsonAsync<List<ProductDto>>(
+        "http://localhost:6001/getall",
+        cancellationToken);
+    //Service Discovery pattern
 
     if (products is null) return Results.NotFound(products);
 
@@ -42,5 +51,11 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, HttpClient httpClien
 
     return Results.Ok(res);
 }).Produces<List<Basket>>();
+
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();

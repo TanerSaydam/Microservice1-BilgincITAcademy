@@ -16,6 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 //builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+#region MyRegion
+builder.Services.AddHealthChecks();
+#endregion
 
 var app = builder.Build();
 
@@ -40,5 +43,7 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
 
     return Results.Ok(res);
 }).Produces<List<Product>>();
+
+app.MapHealthChecks("health");
 
 app.Run();
