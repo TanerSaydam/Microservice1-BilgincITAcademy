@@ -4,6 +4,9 @@ using Microservice.BasketWebAPI.Dtos;
 using Microservice.BasketWebAPI.Models;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Polly;
+using Polly.Registry;
+using Polly.Retry;
 using Scalar.AspNetCore;
 using Steeltoe.Common.Discovery;
 using Steeltoe.Discovery.Consul;
@@ -22,6 +25,19 @@ builder.Services.AddHealthChecks();
 
 builder.Services.AddConsulDiscoveryClient();
 
+const string pipelineName = "my-pipeline";
+
+builder.Services.AddResiliencePipeline(pipelineName, configure =>
+{
+    configure.AddRetry(new RetryStrategyOptions()
+    {
+        MaxRetryAttempts = 3,
+        Delay = TimeSpan.FromSeconds(15),
+        BackoffType = DelayBackoffType.Constant
+    });
+    configure.AddTimeout(TimeSpan.FromSeconds(60));
+});
+
 var app = builder.Build();
 
 app.MapOpenApi();
@@ -31,6 +47,7 @@ app.MapGet("getall", async (
     ApplicationDbContext dbContext,
     IHttpClientFactory httpClientFactory,
     IDiscoveryClient discoveryClient,
+    ResiliencePipelineProvider<string> resiliencePipelineProvider,
     CancellationToken cancellationToken) =>
 {
     var baskets = await dbContext.Baskets.ToListAsync(cancellationToken);
@@ -40,7 +57,11 @@ app.MapGet("getall", async (
         Quantity = 5
     });
 
-    var services = await discoveryClient.GetInstancesAsync("Product-WebAPI", cancellationToken);
+    var pipeline = resiliencePipelineProvider.GetPipeline(pipelineName);
+
+    var services = await pipeline
+                   .ExecuteAsync(async callback
+                    => await discoveryClient.GetInstancesAsync("Product-WebAPI", cancellationToken));
 
     var productEndpointDiscovery = services.FirstOrDefault();
 
@@ -53,10 +74,9 @@ app.MapGet("getall", async (
 
     using var httpClient = httpClientFactory.CreateClient();
 
-    var products = await httpClient.GetFromJsonAsync<List<ProductDto>>(
-        $"{productEndpoint}getall",
-        cancellationToken);
-    //Service Discovery pattern
+    var products = await pipeline
+            .ExecuteAsync(async callback
+                => await httpClient.GetFromJsonAsync<List<ProductDto>>($"{productEndpoint}getall", cancellationToken));
 
     if (products is null) return Results.NotFound(products);
 
