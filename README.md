@@ -1,7 +1,7 @@
-# Microservice Eðitimi 1 - Bilginç IT Academy
+ï»¿# Microservice EÄŸitimi 1 - Bilginï¿½ IT Academy
 
-## Ders Programý
-- [ ] WebAPI ile Microservice inþa edelim
+## Ders ProgramÄ±
+- [ ] WebAPI ile Microservice inÅŸa edelim
 - [ ] OpenApi and Scalar
 - [ ] Health Check
 - [ ] Service Discovery Pattern (HashiCorp Consul)
@@ -9,7 +9,7 @@
 - [ ] Gateway nedir?
 - [ ] Ocelot ile Gateway
 - [ ] Docker
-- [ ] CORS politikasý
+- [ ] CORS politikasÄ±
 - [ ] Authentication
 - [ ] Authorization
 - [ ] QoS / Retry / Circuit Breaker
