@@ -2,6 +2,7 @@ using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Steeltoe.Discovery.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddOpenApi();
 #region MyRegion
 builder.Services.AddHealthChecks();
 #endregion
+
+builder.Services.AddConsulDiscoveryClient();
 
 var app = builder.Build();
 

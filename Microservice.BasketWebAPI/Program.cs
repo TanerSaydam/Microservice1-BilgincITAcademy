@@ -5,6 +5,8 @@ using Microservice.BasketWebAPI.Models;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Steeltoe.Common.Discovery;
+using Steeltoe.Discovery.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +20,18 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddHealthChecks();
 
+builder.Services.AddConsulDiscoveryClient();
+
 var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.MapGet("getall", async (ApplicationDbContext dbContext, IHttpClientFactory httpClientFactory, CancellationToken cancellationToken) =>
+app.MapGet("getall", async (
+    ApplicationDbContext dbContext,
+    IHttpClientFactory httpClientFactory,
+    IDiscoveryClient discoveryClient,
+    CancellationToken cancellationToken) =>
 {
     var baskets = await dbContext.Baskets.ToListAsync(cancellationToken);
     baskets.Add(new Basket()
@@ -32,10 +40,21 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, IHttpClientFactory h
         Quantity = 5
     });
 
+    var services = await discoveryClient.GetInstancesAsync("Product-WebAPI", cancellationToken);
+
+    var productEndpointDiscovery = services.FirstOrDefault();
+
+    if (productEndpointDiscovery is null)
+    {
+        return Results.NotFound(productEndpointDiscovery);
+    }
+
+    var productEndpoint = productEndpointDiscovery.Uri;
+
     using var httpClient = httpClientFactory.CreateClient();
 
     var products = await httpClient.GetFromJsonAsync<List<ProductDto>>(
-        "http://localhost:6001/getall",
+        $"{productEndpoint}getall",
         cancellationToken);
     //Service Discovery pattern
 
