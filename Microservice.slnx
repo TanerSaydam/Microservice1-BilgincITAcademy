@@ -2,4 +2,5 @@
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
+  <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" />
 </Solution>
