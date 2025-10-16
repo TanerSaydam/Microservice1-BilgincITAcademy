@@ -23,6 +23,11 @@ builder.Services.AddHealthChecks();
 
 builder.Services.AddConsulDiscoveryClient();
 
+builder.Services.AddResponseCompression(x =>
+{
+    x.EnableForHttps = true;
+});
+
 var app = builder.Build();
 
 app.MapOpenApi();
@@ -48,5 +53,7 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
 }).Produces<List<Product>>();
 
 app.MapHealthChecks("health");
+
+app.UseResponseCompression();
 
 app.Run();

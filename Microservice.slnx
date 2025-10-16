@@ -3,5 +3,6 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="Microservice.BasketWebAPI/Microservice.BasketWebAPI.csproj" Id="6497df03-05f1-4399-9ee0-faff3964ef60" />
+  <Project Path="Microservice.OcelotGateway/Microservice.OcelotGateway.csproj" Id="90c7118e-4426-4b82-92b3-4275f95e15d9" />
   <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" />
 </Solution>

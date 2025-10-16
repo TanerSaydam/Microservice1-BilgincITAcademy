@@ -1,13 +1,11 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] Gateway nedir?
 - [ ] Ocelot ile Gateway
+- [ ] QoS / Retry / Circuit Breaker
 - [ ] Docker
-- [ ] CORS politikası
 - [ ] Authentication
 - [ ] Authorization
-- [ ] QoS / Retry / Circuit Breaker
 - [ ] LoadBalance
 - [ ] RateLimit
 - [ ] YARP ile Gateway
@@ -26,6 +24,9 @@
 - [x] Health Check
 - [x] Service Discovery Pattern (HashiCorp Consul)
 - [x] Resilience Pattern (Polly)
+- [x] Gateway nedir?
+- [x] Ocelot ile Gateway (Kurulum, Projeleri ekleme)
+- [x] CORS politikası
 
 
 ## Consul Docker komutu (Service Discovery)
