@@ -1,4 +1,4 @@
-# Microservice Eðitimi 1 - [ ] Bilginç IT Academy
+# Microservice Eðitimi 1 - Bilginç IT Academy
 
 ## Ders Programý
 - [ ] WebAPI ile Microservice inþa edelim
