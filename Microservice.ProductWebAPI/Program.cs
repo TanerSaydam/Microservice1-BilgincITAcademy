@@ -32,6 +32,7 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
     var res = await dbContext.Products.ToListAsync(cancellationToken);
     res.Add(new Product()
     {
+        Id = Guid.Parse("226964cf-7796-4c73-ae15-6616dc9d8f00"),
         Name = "Bilgisayar",
         Price = 45000,
         Stock = 10
