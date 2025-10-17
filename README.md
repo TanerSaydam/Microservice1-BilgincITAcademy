@@ -2,7 +2,6 @@
 
 ## Ders Programı
 - [ ] Ocelot ile Gateway
-- [ ] Docker
 - [ ] Authentication
 - [ ] Authorization
 - [ ] LoadBalance
@@ -16,6 +15,8 @@
 ## 17.10.2025
 - [x] HashiCorp.Vault
 - [x] QoS / Retry / Circuit Breaker (Tam çalıştıramadık)
+- [x] Docker image oluşturma
+- [x] Docker compose
 
 ## 16.10.2025
 - [x] Architectural patterns
@@ -128,4 +129,13 @@ docker run -d --name container_name -p 6001:8080 image_adi
 
 #networke bağlı container oluşturma
 docker run -d --network eticaret --name product -p 6001:8080 productapi 
+```
+
+- docker compose build
+```powershell
+#eğer ilk oluşturuyorsak
+docker compose up -d
+
+#eğer tekrar rebuild yapacaksak
+docker compose up -d --build
 ```

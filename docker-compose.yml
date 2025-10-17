@@ -1,0 +1,33 @@
+services:
+ consul:
+  image: hashicorp/consul:latest
+  ports:
+   - 8500:8500
+  container_name: consul-container    
+
+ product:
+  build:
+   context: .
+   dockerfile: Microservice.ProductWebAPI/Dockerfile
+  image: productapi
+  ports:
+   - 6001:8080 
+  container_name: product-container 
+
+ basket:
+  build:
+   context: .
+   dockerfile: Microservice.BasketWebAPI/Dockerfile
+  image: dockerapi
+  ports:
+   - 6010:8080
+  container_name: basket-container
+
+ ocelot:
+  build:
+   context: .
+   dockerfile: Microservice.OcelotGateway/Dockerfile
+  image: ocelotgateway
+  ports:
+   - 5001:8080
+  container_name: ocelot-container

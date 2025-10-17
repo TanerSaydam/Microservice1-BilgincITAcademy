@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
     <File Path="README.md" />
   </Folder>
   <Project Path="Microservice.BasketWebAPI/Microservice.BasketWebAPI.csproj" Id="6497df03-05f1-4399-9ee0-faff3964ef60" />
