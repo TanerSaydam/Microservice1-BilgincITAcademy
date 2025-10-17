@@ -1,14 +1,16 @@
+using Microservice.AuthLayer;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-builder.Services.AddOcelot(builder.Configuration).AddPolly();
+builder.Services.AddOcelot(builder.Configuration);//.AddConsul().AddPolly();
 
 builder.Services.AddCors();
+
+builder.Services.AddAuthLayer();
 
 var app = builder.Build();
 
@@ -17,6 +19,9 @@ app.UseCors(x => x
 .AllowAnyOrigin()
 .AllowAnyMethod()
 .SetPreflightMaxAge(TimeSpan.FromMinutes(10)));
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 await app.UseOcelot();
 

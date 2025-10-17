@@ -1,3 +1,4 @@
+using Microservice.AuthLayer;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,8 @@ builder.Services.AddResponseCompression(x =>
     x.EnableForHttps = true;
 });
 
+builder.Services.AddAuthLayer();
+
 var app = builder.Build();
 
 //Middleware
@@ -35,6 +38,9 @@ app.MapScalarApiReference();
 
 //app.UseSwagger();
 //app.UseSwaggerUI();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken cancellationToken) =>
 {
@@ -49,8 +55,10 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
     });
 
     return Results.Ok(res);
-}).Produces<List<Product>>();
+})
+    .Produces<List<Product>>()
+    .RequireAuthorization();
 
 app.MapHealthChecks("health");
 app.UseResponseCompression();
-app.Run();
+app.Run(); //15:27 görüþelim

@@ -2,10 +2,8 @@
 
 ## Ders Programı
 - [ ] Ocelot ile Gateway
-- [ ] Service Discovery with Ocelot(Consul)
 - [ ] Authentication
 - [ ] Authorization
-- [ ] RateLimit
 - [ ] YARP ile Gateway
 - [ ] Ocelot vs YARP
 - [ ] Transaction (Saga Pattern)
@@ -14,10 +12,12 @@
 
 ## 17.10.2025
 - [x] HashiCorp.Vault
-- [x] QoS / Retry / Circuit Breaker (Tam çalıştıramadık)
+- [x] QoS / Retry / Circuit Breaker(Tam çalıştıramadık, Ocelot)
 - [x] Docker image oluşturma
 - [x] Docker compose
-- [x] LoadBalance
+- [x] LoadBalance (Ocelot)
+- [x] RateLimit (Ocelot)
+- [x] Service Discovery with Ocelot(Tam çalıştıramadık, Consul)
 
 ## 16.10.2025
 - [x] Architectural patterns

@@ -2,12 +2,23 @@
   "Routes": [
     {
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "UpstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamPathTemplate": "/{everything}",
+      "UpstreamPathTemplate": "/api/products/{catchAll}",
+      "DownstreamPathTemplate": "/{catchAll}",
       "DownstreamScheme": "http",
       "LoadBalancerOptions": {
         "Type": "LeastConnection"
       },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Limit": 10,
+        "Period": "10s"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //"ServiceName": "Product-WebAPI"
       "DownstreamHostAndPorts": [
         {
           "Host": "product",
@@ -18,18 +29,13 @@
           "Port": 8080
         }
       ]
-      //,
-      //"QoSOptions": {
-      //  "ExceptionsAllowedBeforeBreaking": 3,
-      //  "DurationOfBreak": 1000, // ms
-      //  "TimeoutValue": 15000 // ms
-      //
     },
     {
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "UpstreamPathTemplate": "/api/baskets/{everything}",
-      "DownstreamPathTemplate": "/{everything}",
+      "UpstreamPathTemplate": "/api/baskets/{catchAll}",
+      "DownstreamPathTemplate": "/{catchAll}",
       "DownstreamScheme": "http",
+      //"ServiceName": "Basket-WebAPI"
       "DownstreamHostAndPorts": [
         {
           "Host": "basket",
@@ -39,6 +45,15 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5001"
+    "BaseUrl": "http://localhost:5001",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "HttpStatusCode": 418
+    }
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "consul",
+    //  "Port": 8500,
+    //  "Type": "Consul"
+    //}
   }
 }
