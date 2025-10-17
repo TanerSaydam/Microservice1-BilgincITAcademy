@@ -2,8 +2,6 @@
 
 ## Ders Programı
 - [ ] Ocelot ile Gateway
-- [ ] Authentication
-- [ ] Authorization
 - [ ] YARP ile Gateway
 - [ ] Ocelot vs YARP
 - [ ] Transaction (Saga Pattern)
@@ -18,6 +16,8 @@
 - [x] LoadBalance (Ocelot)
 - [x] RateLimit (Ocelot)
 - [x] Service Discovery with Ocelot(Tam çalıştıramadık, Consul)
+- [x] Authentication
+- [x] Authorization
 
 ## 16.10.2025
 - [x] Architectural patterns

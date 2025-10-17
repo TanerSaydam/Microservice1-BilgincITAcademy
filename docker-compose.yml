@@ -27,10 +27,19 @@ services:
   build:
    context: .
    dockerfile: Microservice.BasketWebAPI/Dockerfile
-  image: dockerapi
+  image: basketapi
   ports:
    - 6010:8080
   container_name: basket-container
+
+ auth:
+  build:
+   context: .
+   dockerfile: Microservice.AuthWebAPI/Dockerfile
+  image: authapi
+  ports:
+   - 9000:8080
+  container_name: auth-container  
 
  ocelot:
   build:

@@ -23,6 +23,8 @@ app.UseCors(x => x
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGet("", () => "hello world"); //ocelot buna izin vermiyor
+
 await app.UseOcelot();
 
 await app.RunAsync();

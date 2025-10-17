@@ -14,9 +14,12 @@
         "Limit": 10,
         "Period": "10s"
       },
+      "RouteClaimsRequirement": {
+        "UserType": "registered"
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
+        "AllowedScopes": [ "product.getall" ]
       },
       //"ServiceName": "Product-WebAPI"
       "DownstreamHostAndPorts": [
@@ -39,6 +42,18 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "basket",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamPathTemplate": "/api/auth/{catchAll}",
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",      
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
           "Port": 8080
         }
       ]

@@ -4,6 +4,7 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="Microservice.AuthLayer/Microservice.AuthLayer.csproj" Id="6507c59f-824e-4790-95ec-443fcf2228b8" />
+  <Project Path="Microservice.AuthWebAPI/Microservice.AuthWebAPI.csproj" Id="056e498e-9624-46af-bf29-e0446428bed2" />
   <Project Path="Microservice.BasketWebAPI/Microservice.BasketWebAPI.csproj" Id="6497df03-05f1-4399-9ee0-faff3964ef60" />
   <Project Path="Microservice.HashiCorpVault/Microservice.HashiCorpVault.csproj" Id="eed505fb-edf9-450f-ab8e-1d5788a6cba3" />
   <Project Path="Microservice.OcelotGateway/Microservice.OcelotGateway.csproj" Id="90c7118e-4426-4b82-92b3-4275f95e15d9" />
