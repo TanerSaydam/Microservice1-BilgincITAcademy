@@ -22,7 +22,6 @@ builder.Services.AddHealthChecks();
 #endregion
 
 builder.Services.AddConsulDiscoveryClient();
-
 builder.Services.AddResponseCompression(x =>
 {
     x.EnableForHttps = true;
@@ -30,13 +29,12 @@ builder.Services.AddResponseCompression(x =>
 
 var app = builder.Build();
 
+//Middleware
 app.MapOpenApi();
 app.MapScalarApiReference();
 
 //app.UseSwagger();
 //app.UseSwaggerUI();
-
-//Middleware
 
 app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken cancellationToken) =>
 {
@@ -53,7 +51,5 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
 }).Produces<List<Product>>();
 
 app.MapHealthChecks("health");
-
 app.UseResponseCompression();
-
 app.Run();
