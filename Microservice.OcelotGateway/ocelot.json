@@ -11,6 +11,12 @@
           "Port": 6001
         }
       ]
+      //,
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 1000, // ms
+      //  "TimeoutValue": 15000 // ms
+      //
     },
     {
       "UpstreamHttpMethod": [ "GET" ],

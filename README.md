@@ -1,9 +1,7 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] HashiCorp.Vault
 - [ ] Ocelot ile Gateway
-- [ ] QoS / Retry / Circuit Breaker
 - [ ] Docker
 - [ ] Authentication
 - [ ] Authorization
@@ -15,7 +13,11 @@
 - [ ] Observability
 - [ ] Aspire
 
-## 16.10.2025 1.Ders
+## 17.10.2025
+- [x] HashiCorp.Vault
+- [x] QoS / Retry / Circuit Breaker (Tam çalıştıramadık)
+
+## 16.10.2025
 - [x] Architectural patterns
 - [x] Microservice nedir?
 - [x] Modular Monolith nedir?
@@ -98,4 +100,32 @@ disable_mlock = true
 - Production Docker (Bu kod vault.hcl in bulunduğu klasörde çalıştırılmalı)
 ```powershell
 docker run -d --name vault -p 8200:8200 --cap-add=IPC_LOCK -v "${PWD}\vault-data:/vault/data" -v "${PWD}\vault.hcl:/vault/config/vault.hcl" hashicorp/vault server -config=vault.hcl
+```
+
+## Docker CLI komutları
+- Network komutları
+```powershell
+#docker network listele
+docker network ls 
+
+#kullanılmayan networkleri sil
+docker network prune 
+
+#yeni network oluştur
+docker network create network_name
+```
+
+- Image ve container komutları
+```powershell
+#image dönüştürme - eğer docker file olan ana dizinde ise build komutu
+docker build -t image_name . 
+
+#image dönüştürme - eğer docker file alt dizinde ise
+docker build -t image_name -f Microservice.ProductWebAPI/Dockerfile . 
+
+#container oluşturma
+docker run -d --name container_name -p 6001:8080 image_adi
+
+#networke bağlı container oluşturma
+docker run -d --network eticaret --name product -p 6001:8080 productapi 
 ```
