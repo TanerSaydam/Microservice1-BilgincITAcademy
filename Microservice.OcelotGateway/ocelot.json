@@ -5,9 +5,16 @@
       "UpstreamPathTemplate": "/api/products/{everything}",
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "product",
+          "Port": 8080
+        },
+        {
+          "Host": "product2",
           "Port": 8080
         }
       ]

@@ -38,6 +38,7 @@ app.MapScalarApiReference();
 
 app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken cancellationToken) =>
 {
+    Console.WriteLine("I am working... {0}", DateTime.Now);
     var res = await dbContext.Products.ToListAsync(cancellationToken);
     res.Add(new Product()
     {

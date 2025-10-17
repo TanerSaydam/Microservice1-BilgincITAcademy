@@ -2,9 +2,9 @@
 
 ## Ders Programı
 - [ ] Ocelot ile Gateway
+- [ ] Service Discovery with Ocelot(Consul)
 - [ ] Authentication
 - [ ] Authorization
-- [ ] LoadBalance
 - [ ] RateLimit
 - [ ] YARP ile Gateway
 - [ ] Ocelot vs YARP
@@ -17,6 +17,7 @@
 - [x] QoS / Retry / Circuit Breaker (Tam çalıştıramadık)
 - [x] Docker image oluşturma
 - [x] Docker compose
+- [x] LoadBalance
 
 ## 16.10.2025
 - [x] Architectural patterns
