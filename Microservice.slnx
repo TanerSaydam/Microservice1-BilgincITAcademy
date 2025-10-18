@@ -9,4 +9,5 @@
   <Project Path="Microservice.HashiCorpVault/Microservice.HashiCorpVault.csproj" Id="eed505fb-edf9-450f-ab8e-1d5788a6cba3" />
   <Project Path="Microservice.OcelotGateway/Microservice.OcelotGateway.csproj" Id="90c7118e-4426-4b82-92b3-4275f95e15d9" />
   <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" />
+  <Project Path="Microservice.YARPGateway/Microservice.YARPGateway.csproj" Id="0d5ef0a6-1d5b-4a54-9774-5319e759af25" />
 </Solution>

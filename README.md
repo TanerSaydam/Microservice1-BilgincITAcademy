@@ -1,12 +1,15 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] Ocelot ile Gateway
 - [ ] YARP ile Gateway
 - [ ] Ocelot vs YARP
 - [ ] Transaction (Saga Pattern)
 - [ ] Observability
 - [ ] Aspire
+
+## 18.10.2025
+- [x] Ocelot ile Gateway(son bir özetledik ve C# configuration kullanmaya çalıştık)
+- [x] 
 
 ## 17.10.2025
 - [x] HashiCorp.Vault
@@ -40,10 +43,12 @@ docker run -d --name consul -p 8500:8500 hashicorp/consul:latest
 ```
 
 ## Polly kütüphanesi BackoffType
+```csharp
 //🧩 DelayBackoffType Enum Türleri
 //Constant	Her denemede sabit süre bekler.	Delay = 5s → 5s, 5s, 5s
 //Linear	Her denemede gecikme lineer (doğrusal) artar.	Delay = 5s → 5s, 10s, 15s
 //Exponential	Her denemede gecikme katlanarak (üstel) artar.	Delay = 5s → 5s, 10s, 20s, 40s
+```
 
 ## HasiCorp Vault 
 - Development Docker

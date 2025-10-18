@@ -5,23 +5,6 @@
       "UpstreamPathTemplate": "/api/products/{catchAll}",
       "DownstreamPathTemplate": "/{catchAll}",
       "DownstreamScheme": "http",
-      "LoadBalancerOptions": {
-        "Type": "LeastConnection"
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Limit": 10,
-        "Period": "10s"
-      },
-      "RouteClaimsRequirement": {
-        "UserType": "registered"
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "product.getall" ]
-      },
-      //"ServiceName": "Product-WebAPI"
       "DownstreamHostAndPorts": [
         {
           "Host": "product",
@@ -31,7 +14,24 @@
           "Host": "product2",
           "Port": 8080
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Limit": 10,
+        "Period": "10s"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "product.getall" ]
+      },
+      "RouteClaimsRequirement": {
+        "UserType": "registered"
+      }
+      //"ServiceName": "Product-WebAPI"
     },
     {
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
@@ -60,7 +60,7 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5001",
+    "BaseUrl": "http://ocelot:8080",
     "RateLimitOptions": {
       "DisableRateLimitHeaders": false,
       "HttpStatusCode": 418
