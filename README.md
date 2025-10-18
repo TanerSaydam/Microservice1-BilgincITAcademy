@@ -1,7 +1,6 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] Observability
 - [ ] Aspire
 - [ ] Transaction (Saga Pattern)
 
@@ -13,6 +12,7 @@
 - [x] YARP Authentication/Authorization
 - [x] YARP HealthCheck
 - [x] Ocelot vs YARP
+- [x] Observability (with OpenTelemetry and Jeager)
 
 ## 17.10.2025
 - [x] HashiCorp.Vault

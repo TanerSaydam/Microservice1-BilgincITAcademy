@@ -17,7 +17,7 @@ public sealed class MyAuthorizeAttribute : Attribute, IAuthorizationFilter
 
         //db ye bağlan rolü kontrolü
 
-        bool isHaveRole = false;
+        bool isHaveRole = true;
         if (!isHaveRole)
         {
             context.Result = new UnauthorizedResult();

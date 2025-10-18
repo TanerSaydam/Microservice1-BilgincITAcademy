@@ -58,3 +58,11 @@ services:
   ports:
    - 5002:8080
   container_name: yarp-container
+
+ jeager:
+  image: cr.jaegertracing.io/jaegertracing/jaeger:latest
+  ports:
+   - 16686:16686
+   - 4317:4317
+   - 4318:4318
+  container_name: jeager-container

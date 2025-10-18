@@ -2,6 +2,8 @@ using Microservice.AuthLayer;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using Steeltoe.Discovery.Consul;
 
@@ -32,6 +34,25 @@ builder.Services.AddControllers();
 
 builder.Services.AddAuthLayer();
 
+
+builder.Services.AddOpenTelemetry()
+    .WithTracing(c =>
+    {
+        c.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ProductWebAPI"));
+        c.AddAspNetCoreInstrumentation();
+        c.AddHttpClientInstrumentation();
+        c.AddEntityFrameworkCoreInstrumentation(o =>
+        {
+            o.SetDbStatementForText = true;
+            o.SetDbStatementForStoredProcedure = true;
+            o.EnrichWithIDbCommand = (activity, command) =>
+            {
+            };
+        });
+        c.AddConsoleExporter();
+        c.AddOtlpExporter();
+    });
+
 var app = builder.Build();
 
 //Middleware
@@ -46,7 +67,11 @@ app.UseAuthorization();
 
 app.MapGet("getall", async (ApplicationDbContext dbContext, HttpContext httpContext, CancellationToken cancellationToken) =>
 {
-    Console.WriteLine("I am working... {0}", DateTime.Now);
+    //throw new ArgumentException("bla bla");
+
+    HttpClient httpClient = new();
+    await httpClient.GetAsync("https://jsonplaceholder.typicode.com/todos", cancellationToken);
+
     var res = await dbContext.Products.ToListAsync(cancellationToken);
     res.Add(new Product()
     {
