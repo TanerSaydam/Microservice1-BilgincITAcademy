@@ -1,5 +1,6 @@
 using MassTransit;
 using Microservice.AuthLayer;
+using Microservice.ProductWebAPI.Consumer;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -55,12 +56,17 @@ builder.AddServiceDefaults();
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<BasketConsumer>();
     x.UsingRabbitMq((context, configure) =>
     {
         configure.Host("localhost", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
+        });
+        configure.ReceiveEndpoint("product-basket-endpoint", e =>
+        {
+            e.ConfigureConsumer<BasketConsumer>(context);
         });
     });
 });

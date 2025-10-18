@@ -1,5 +1,6 @@
 using HealthChecks.UI.Client;
 using MassTransit;
+using Microservice.BasketWebAPI.Consumer;
 using Microservice.BasketWebAPI.Context;
 using Microservice.BasketWebAPI.Dtos;
 using Microservice.BasketWebAPI.Models;
@@ -42,7 +43,8 @@ builder.Services.AddResiliencePipeline(pipelineName, configure =>
 
 builder.Services.AddMassTransit(x =>
 {
-    //x.AddConsumer<BasketConsumer>();
+    x.AddConsumer<OrderResultConsumer>();
+    x.AddConsumer<ProductResultConsumer>();
     x.UsingRabbitMq((context, configure) =>
     {
         configure.Host("localhost", "/", h =>
@@ -50,10 +52,11 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        //configure.ReceiveEndpoint("basket-endpoint", e =>
-        //{
-        //    e.ConfigureConsumer<BasketConsumer>(context);
-        //});
+        configure.ReceiveEndpoint("order-result-basket-endpoint", e =>
+        {
+            e.ConfigureConsumer<OrderResultConsumer>(context);
+            e.ConfigureConsumer<ProductResultConsumer>(context);
+        });
     });
 });
 

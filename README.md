@@ -1,8 +1,5 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
-## Ders Programı
-- [ ] Transaction (Saga Pattern)
-
 ## 18.10.2025
 - [x] Ocelot ile Gateway(son bir özetledik ve C# configuration kullanmaya çalıştık)
 - [x] YARP ile Gateway
@@ -17,6 +14,7 @@
     - [x] Shared Database Anti pattern (Teorik)
     - [x] Database-per Service Pattern (Teorik)
     - [x] API Composition Pattern
+- [x] Transaction (Saga Pattern)
 
 ## 17.10.2025
 - [x] HashiCorp.Vault
