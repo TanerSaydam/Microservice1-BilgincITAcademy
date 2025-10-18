@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.AuthLayer\Microservice.AuthLayer.csproj" />
+    <ProjectReference Include="..\Microservice.ServiceDefaults\Microservice.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,13 +7,13 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product",
-          "Port": 8080
-        },
-        {
-          "Host": "product2",
-          "Port": 8080
+          "Host": "localhost",
+          "Port": 6001
         }
+        //{
+        //  "Host": "localhost",
+        //  "Port": 8080
+        //}
       ],
       "LoadBalancerOptions": {
         "Type": "LeastConnection"
@@ -41,8 +41,8 @@
       //"ServiceName": "Basket-WebAPI"
       "DownstreamHostAndPorts": [
         {
-          "Host": "basket",
-          "Port": 8080
+          "Host": "localhost",
+          "Port": 6010
         }
       ]
     },
@@ -53,14 +53,14 @@
       "DownstreamScheme": "http",      
       "DownstreamHostAndPorts": [
         {
-          "Host": "auth",
-          "Port": 8080
+          "Host": "localhost",
+          "Port": 9000
         }
       ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://ocelot:8080",
+    "BaseUrl": "http://localhost:5001",
     "RateLimitOptions": {
       "DisableRateLimitHeaders": false,
       "HttpStatusCode": 418

@@ -2,8 +2,6 @@ using Microservice.AuthLayer;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using Steeltoe.Discovery.Consul;
 
@@ -34,27 +32,32 @@ builder.Services.AddControllers();
 
 builder.Services.AddAuthLayer();
 
+//builder.Services.AddOpenTelemetry()
+//    .WithTracing(c =>
+//    {
+//        c.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ProductWebAPI"));
+//        c.AddAspNetCoreInstrumentation();
+//        c.AddHttpClientInstrumentation();
+//        c.AddEntityFrameworkCoreInstrumentation(o =>
+//        {
+//            o.SetDbStatementForText = true;
+//            o.SetDbStatementForStoredProcedure = true;
+//            o.EnrichWithIDbCommand = (activity, command) =>
+//            {
+//            };
+//        });
+//        c.AddConsoleExporter();
+//        c.AddOtlpExporter();
+//    });
 
-builder.Services.AddOpenTelemetry()
-    .WithTracing(c =>
-    {
-        c.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ProductWebAPI"));
-        c.AddAspNetCoreInstrumentation();
-        c.AddHttpClientInstrumentation();
-        c.AddEntityFrameworkCoreInstrumentation(o =>
-        {
-            o.SetDbStatementForText = true;
-            o.SetDbStatementForStoredProcedure = true;
-            o.EnrichWithIDbCommand = (activity, command) =>
-            {
-            };
-        });
-        c.AddConsoleExporter();
-        c.AddOtlpExporter();
-    });
+builder.AddServiceDefaults();
 
 var app = builder.Build();
 
+
+var connectionstring = builder.Configuration.GetConnectionString("eticaretdb");
+
+Console.WriteLine("ConnectionString: {0}", connectionstring);
 //Middleware
 app.MapOpenApi();
 app.MapScalarApiReference();
@@ -67,8 +70,6 @@ app.UseAuthorization();
 
 app.MapGet("getall", async (ApplicationDbContext dbContext, HttpContext httpContext, CancellationToken cancellationToken) =>
 {
-    //throw new ArgumentException("bla bla");
-
     HttpClient httpClient = new();
     await httpClient.GetAsync("https://jsonplaceholder.typicode.com/todos", cancellationToken);
 
@@ -86,8 +87,11 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, HttpContext httpCont
     .Produces<List<Product>>()
     .RequireAuthorization();
 
-app.MapHealthChecks("health");
+//app.MapHealthChecks("health");
 app.UseResponseCompression();
 
 app.MapControllers();
+
+app.MapDefaultEndpoints();
+
 app.Run();

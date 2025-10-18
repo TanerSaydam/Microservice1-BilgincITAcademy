@@ -1,7 +1,6 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] Aspire
 - [ ] Transaction (Saga Pattern)
 
 ## 18.10.2025
@@ -13,6 +12,7 @@
 - [x] YARP HealthCheck
 - [x] Ocelot vs YARP
 - [x] Observability (with OpenTelemetry and Jeager)
+- [x] Aspire
 
 ## 17.10.2025
 - [x] HashiCorp.Vault
