@@ -1,15 +1,18 @@
 ﻿# Microservice Eğitimi 1 - Bilginç IT Academy
 
 ## Ders Programı
-- [ ] YARP ile Gateway
-- [ ] Ocelot vs YARP
-- [ ] Transaction (Saga Pattern)
 - [ ] Observability
 - [ ] Aspire
+- [ ] Transaction (Saga Pattern)
 
 ## 18.10.2025
 - [x] Ocelot ile Gateway(son bir özetledik ve C# configuration kullanmaya çalıştık)
-- [x] 
+- [x] YARP ile Gateway
+- [x] YARP LoadBalance
+- [x] YARP Ratelimit
+- [x] YARP Authentication/Authorization
+- [x] YARP HealthCheck
+- [x] Ocelot vs YARP
 
 ## 17.10.2025
 - [x] HashiCorp.Vault

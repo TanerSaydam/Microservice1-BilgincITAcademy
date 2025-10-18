@@ -14,8 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseInMemoryDatabase("MyDb");
 });
 
-//builder.Services.AddSwaggerGen();
-//builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
 #region MyRegion
@@ -28,6 +28,8 @@ builder.Services.AddResponseCompression(x =>
     x.EnableForHttps = true;
 });
 
+builder.Services.AddControllers();
+
 builder.Services.AddAuthLayer();
 
 var app = builder.Build();
@@ -36,13 +38,13 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-//app.UseSwagger();
-//app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken cancellationToken) =>
+app.MapGet("getall", async (ApplicationDbContext dbContext, HttpContext httpContext, CancellationToken cancellationToken) =>
 {
     Console.WriteLine("I am working... {0}", DateTime.Now);
     var res = await dbContext.Products.ToListAsync(cancellationToken);
@@ -61,4 +63,6 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, CancellationToken ca
 
 app.MapHealthChecks("health");
 app.UseResponseCompression();
-app.Run(); //15:27 görüþelim
+
+app.MapControllers();
+app.Run();
