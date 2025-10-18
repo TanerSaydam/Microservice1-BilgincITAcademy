@@ -1,7 +1,9 @@
 using HealthChecks.UI.Client;
+using MassTransit;
 using Microservice.BasketWebAPI.Context;
 using Microservice.BasketWebAPI.Dtos;
 using Microservice.BasketWebAPI.Models;
+using Microservice.Shared;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Polly;
@@ -38,10 +40,46 @@ builder.Services.AddResiliencePipeline(pipelineName, configure =>
     configure.AddTimeout(TimeSpan.FromSeconds(60));
 });
 
+builder.Services.AddMassTransit(x =>
+{
+    //x.AddConsumer<BasketConsumer>();
+    x.UsingRabbitMq((context, configure) =>
+    {
+        configure.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        //configure.ReceiveEndpoint("basket-endpoint", e =>
+        //{
+        //    e.ConfigureConsumer<BasketConsumer>(context);
+        //});
+    });
+});
+
 var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
+
+app.MapPost("create-order", async (IPublishEndpoint publishEndpoint, ApplicationDbContext dbContext, CancellationToken cancellationToken) =>
+{
+    var baskets = await dbContext.Baskets.ToListAsync(cancellationToken);
+
+    //basket þu anda boþ olduðundan bunu elle ürettim
+    List<CreateOrderDetailDto> orderDetails = new()
+    {
+        new CreateOrderDetailDto(Guid.Parse("1d853f04-a795-4d51-b7ca-974777b95284"), 5),
+        new CreateOrderDetailDto(Guid.Parse("d4f66a4e-c84b-4e5a-94f7-c0043160d771"), 3),
+        new CreateOrderDetailDto(Guid.Parse("5e5b4041-bfa8-498c-a1bf-a86c0b7e2e93"),8),
+    };
+
+    CreateOrderDto createOrder = new(orderDetails);
+
+    await publishEndpoint.Publish(createOrder);
+
+    return Results.Ok(new { message = "Sipariþ oluþturuluyor..." });
+});
 
 app.MapGet("getall", async (
     ApplicationDbContext dbContext,

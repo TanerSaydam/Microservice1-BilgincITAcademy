@@ -12,5 +12,6 @@
   <Project Path="Microservice.OrderWebAPI/Microservice.OrderWebAPI.csproj" />
   <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" />
   <Project Path="Microservice.ServiceDefaults/Microservice.ServiceDefaults.csproj" Id="d68cf9ce-88dc-4399-9290-f79eb511aeea" />
+  <Project Path="Microservice.Shared/Microservice.Shared.csproj" Id="cc8384de-9cc0-44ab-a540-c7eefa9b992f" />
   <Project Path="Microservice.YARPGateway/Microservice.YARPGateway.csproj" Id="0d5ef0a6-1d5b-4a54-9774-5319e759af25" />
 </Solution>

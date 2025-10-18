@@ -13,6 +13,10 @@
 - [x] Ocelot vs YARP
 - [x] Observability (with OpenTelemetry and Jeager)
 - [x] Aspire
+- [x] Microservice Patterns
+    - [x] Shared Database Anti pattern (Teorik)
+    - [x] Database-per Service Pattern (Teorik)
+    - [x] API Composition Pattern
 
 ## 17.10.2025
 - [x] HashiCorp.Vault

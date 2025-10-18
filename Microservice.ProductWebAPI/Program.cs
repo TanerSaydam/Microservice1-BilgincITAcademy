@@ -1,3 +1,4 @@
+using MassTransit;
 using Microservice.AuthLayer;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
@@ -52,6 +53,19 @@ builder.Services.AddAuthLayer();
 
 builder.AddServiceDefaults();
 
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, configure) =>
+    {
+        configure.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+    });
+});
+
+
 var app = builder.Build();
 
 
@@ -84,13 +98,13 @@ app.MapGet("getall", async (ApplicationDbContext dbContext, HttpContext httpCont
 
     return Results.Ok(res);
 })
-    .Produces<List<Product>>()
-    .RequireAuthorization();
+    .Produces<List<Product>>();
+//.RequireAuthorization();
 
 //app.MapHealthChecks("health");
 app.UseResponseCompression();
 
-app.MapControllers();
+//app.MapControllers();
 
 app.MapDefaultEndpoints();
 

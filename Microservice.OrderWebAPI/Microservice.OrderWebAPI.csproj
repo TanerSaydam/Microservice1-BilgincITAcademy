@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Microservice.ServiceDefaults\Microservice.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Microservice.Shared\Microservice.Shared.csproj" />
   </ItemGroup>
 
 </Project>
